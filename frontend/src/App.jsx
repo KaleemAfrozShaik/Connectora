@@ -13,6 +13,7 @@ import PageLoader from "./components/PageLoader";
 import useAuthUser from "./hooks/useAuthUser";
 import Layout from "./components/Layout";
 import { useThemeStore } from "./store/useThemeStore";
+import FriendsPage from "./pages/FriendsPage";
 
 
 
@@ -41,6 +42,13 @@ const App = () => {
         />
         <Route path="/signup" element={!isAuthenticated ? <SignUpPage/> :(isOnboarded ? (<Navigate to="/"/>) : (<Navigate to="/onboarding"/>)) }/>
         <Route path="/login" element={!isAuthenticated ? <LoginPage/> : (isOnboarded ? (<Navigate to="/"/>) : (<Navigate to="/onboarding"/>)) }/>
+        <Route path="/friends" element={isAuthenticated && isOnboarded ? 
+        <Layout showSidebar>
+          <FriendsPage/>
+        </Layout>
+          : (
+            <Navigate to={!isAuthenticated ? "/login" : "/onboarding"}/>
+          )}/>
         <Route path="/notifications" element={isAuthenticated && isOnboarded ? 
         <Layout showSidebar>
           <NotificationsPage/>
